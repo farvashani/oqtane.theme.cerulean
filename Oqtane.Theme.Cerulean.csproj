@@ -25,9 +25,13 @@
     <PackageReference Include="Oqtane.Shared" Version="1.0.1" />
   </ItemGroup>
   
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <!-- <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="IF $(ConfigurationName) == Debug (debug.cmd)" />
     <Exec Command="IF $(ConfigurationName) == Release (release.cmd)" />
+  </Target> -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Condition="$(ConfigurationName) == Debug" Command="pwsh debug.ps1" />
+    <Exec Condition="$(ConfigurationName) == Release" Command="pwsh release.ps1" />  
   </Target>
 
 </Project>
